@@ -1,0 +1,44 @@
+CONDITIONAL STATEMENTS:
+
+CHECK condition {
+    // true block
+} ELSE {
+    // false block
+}
+
+to 
+
+if cond goto L1
+goto L2
+L1:
+  true block
+goto L3
+L2:
+  false block
+L3:
+
+LOOP STATEMENTS:
+
+loop_stmt
+    : LOOP {
+        loop_start = newLabel();
+        loop_body = newLabel();
+        loop_end = newLabel();
+
+        fprintf(yyout, "%s:\n", loop_start);
+    }
+    condition {
+        fprintf(yyout, "if %s goto %s\n", $3, loop_body);
+        fprintf(yyout, "goto %s\n", loop_end);
+        fprintf(yyout, "%s:\n", loop_body);
+    }
+    '{' statement_list '}' {
+        fprintf(yyout, "goto %s\n", loop_start);
+        fprintf(yyout, "%s:\n", loop_end);
+    };
+
+TO 
+
+LOOP condition {
+    // loop body
+}
