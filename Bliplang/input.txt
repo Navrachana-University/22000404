@@ -1,0 +1,14 @@
+make x = 5;
+make y = 10;
+add x y -> z;
+sub x y -> w;
+mul x y -> v;
+div x y -> u;
+check z > 10 {
+    sub z 1 -> z;
+} else {
+    add z 1 -> z;
+}
+loop z < 20 {
+    add z 1 -> z;
+}
